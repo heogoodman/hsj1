@@ -3,8 +3,10 @@ package com.basic2.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="customers")
@@ -20,7 +22,8 @@ public class Customer {
     @Column(nullable = false)
     private int age;
     @Column(nullable = false)
-    private Date entryDate;
+    @CreationTimestamp
+    private LocalDateTime entryDate = LocalDateTime.now();
 
 
 

@@ -16,7 +16,7 @@ import java.util.Optional;
 public class CustomerBasicRestController {
 
         @Autowired
-        private CustomerRepository customerRepository;
+        private CustomerRepository customerRepository; //먼저 레파지토리를 인젝션받는다.
 
         @PostMapping
         public Customer create(@RequestBody Customer customer) {
@@ -26,13 +26,13 @@ public class CustomerBasicRestController {
         @GetMapping
         public List<Customer> getCustomers() {
                 System.out.println("Test");
-                return customerRepository.findAll();
+                return customerRepository.findAll(); // 부트에서 구현해준findAll() 메소드사용
         }
 
         @GetMapping("/{id}")
-        public Customer getCustomer(@PathVariable Long id) {
+        public Customer getCustomer(@PathVariable Long id) { //매개변수앞에써주는어노테이션@PathVariable
             Optional<Customer> optionalCustomer = customerRepository.findById(id);
-
+                //id도 email과 같은 unique 값이라 Optional로 중복,널값이 들어왔을때 처리를 하기위해 써주어야함.
             Customer customer = optionalCustomer.orElseThrow(() ->new BusinessException("User Not Found",
                     HttpStatus.NOT_FOUND));
                     return customer;
